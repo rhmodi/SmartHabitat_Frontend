@@ -1,38 +1,133 @@
 .App {
+  height: 100vh;
+  background: linear-gradient(to bottom, rgb(226, 206, 243), rgb(165, 115, 223));
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  color: black;
+  padding: 20px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.box {
+  width: 1500pt;
+  height: 570pt;
+  background-color: white;
+  border: 2px solid rgb(69, 46, 112);
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+header {
+  display: flex;
+  align-items: left;
+  margin-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: black
+}
+
+header .title {
+  font-size: 24px;
+  color:#6b4f7c;;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.city-selector {
+  font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin-bottom: 30px;
+}
+
+.city-selector label {
+  font-size: 16px;
+  color: #333333;
+  margin-bottom: 8px;
+}
+
+.city-selector select {
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid #ccc;
   color: white;
+  border-radius: 6px;
+  outline: none;
+  width: 30%;
+  background-color: black;
 }
 
-.App-link {
-  color: #61dafb;
+.slider-container {
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.slider-container .slider-label {
+  font-size: 14px;
+  color: #070707;
+  font-weight: bold;
+}
+
+.slider-with-percentage {
+  position: relative;
+  width: 50%;
+  margin: 15px auto;
+}
+
+.slider {
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+  background: #ccc;
+  height: 5px;
+  border-radius: 10px;
+  outline: none;
+  transition: background 0.3s;
+  position: relative;
+  background: linear-gradient(
+    to right, 
+    #6b4f7c var(--slider-progress),
+    #747474 var(--slider-progress),
+    #727272 100% 
+  );
+}
+
+.slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #6b4f7c;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  top: -7px;
+  z-index: 2;
+}
+
+.slider-container input[type="range"]:hover {
+  background: #aaa;
+}
+
+.percentage {
+  position: absolute;
+  top: 25px;
+  left: 100%;
+  transform: translateX(10px);
+  font-size: 14px;
+  color: #000000;
+  top: 4px;
+  font-weight: bold;
 }
