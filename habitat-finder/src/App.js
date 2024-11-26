@@ -1,55 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header';
-import Dropdown from './components/Dropdown';
-import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+// Import pages
+import ResultsPage from './pages/ResultsPage';
+import HomePage from './pages/HomePage';
+import React from 'react';
 
-function App() {
-  const [crimeValue, setCrimeValue] = useState(50);
-  const [environmentValue, setEnvironmentValue] = useState(50);
-
-  const handleCrimeChange = (e) => setCrimeValue(e.target.value);
-  const handleEnvironmentChange = (e) => setEnvironmentValue(e.target.value);
+const App= ()=> {
   return (
-    <div className="App">
-      <div className="box">
-        <Header />
-        <Dropdown />
-        <div className="slider-container">
-          <label className="slider-label">Crime</label>
-          <div className="slider-with-percentage">
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={crimeValue}
-            onChange={handleCrimeChange}
-            className="slider"
-            style={{
-              '--slider-progress': `${crimeValue}%`,
-            }}
-          />
-            <span className="percentage">{crimeValue}%</span>
-          </div>
-          
-          <label className="slider-label">Environment</label>
-          <div className="slider-with-percentage">
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={environmentValue}
-            onChange={handleEnvironmentChange}
-            className="slider"
-            style={{
-              '--slider-progress': `${environmentValue}%`,
-            }}
-          />
-            <span className="percentage">{environmentValue}%</span>
-          </div>
-        </div>
-      </div>
+    
+    <Router>
+    <div className="app-container">
+    
+      <main>
+      
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/results" element={<ResultsPage />} />
+        </Routes>
+       
+      </main>
     </div>
+    </Router>
+  
   );
 }
 
