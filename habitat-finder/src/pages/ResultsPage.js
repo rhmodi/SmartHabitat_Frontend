@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 // import Dropdown from '../components/Dropdown';
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ResultsPage = () => {
   const result = [
@@ -16,10 +17,14 @@ const ResultsPage = () => {
       <div className="box">
         <Header />
         <br></br>
-        <h1 class="font-bold" className="title" >BEST CITY FOR YOU ✨ :- {result[0].city}</h1>
+        <h1 class="font-bold" className="title">
+          BEST CITY FOR YOU ✨ :- {result[0].city}
+        </h1>
         <br></br>
         <br></br>
-        <h2 class="font-bold text-purple-500" className="subtitle" >Top 5 Cities and Neighborhoods for you:</h2>
+        <h2 class="font-bold text-purple-500" className="subtitle">
+          Top 5 Cities and Neighborhoods for you:
+        </h2>
         <br></br>
         <table className="table-auto border-collapse border border-gray-300 w-3/4 mx-auto shadow-lg">
           <thead>
@@ -50,9 +55,19 @@ const ResultsPage = () => {
                   {item.county}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-blue-500">
-                  <a href="#" className="hover:underline font-medium">
+                  <Link
+                    to="/details"
+                    onClick={()=>{
+                      const cityInfo = [{
+                        "city":item.city,
+                        "county":item.county
+                      }];
+                      localStorage.setItem("Metrics",JSON.stringify(cityInfo));
+                    }}
+                    className="hover:underline font-medium"
+                  >
                     View Detailed Stats
-                  </a>
+                  </Link>
                 </td>
               </tr>
             ))}

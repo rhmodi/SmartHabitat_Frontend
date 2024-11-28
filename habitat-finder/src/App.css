@@ -13,7 +13,7 @@
   padding: 20px;
 }
 
-.box {
+/* .box {
   width: 1500pt;
   height: 570pt;
   background-color: white;
@@ -21,7 +21,23 @@
   padding: 20px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   margin: 20px;
+} */
+
+.box {
+  width: 95%;
+  max-width: 1500px;
+  min-width: 1000px;
+  height: 90%;
+  max-height: 80vh;
+  background-color: white;
+  border: 2px solid rgb(69, 46, 112);
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  box-sizing: border-box;
 }
+
+
 
 header {
   display: flex;
@@ -134,4 +150,38 @@ header .title {
   color: #000000;
   top: 4px;
   font-weight: bold;
+}
+
+.detials-content{
+  text-align: center;
+  padding: 20px;
+}
+
+.metrics-container {
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start; 
+  gap: 20px; 
+  flex-wrap: wrap;
+  padding-top: 20px;
+  text-align: center;
+}
+
+.section {
+  flex: 1; 
+  max-width: 45%; 
+  margin: 10px;
+}
+
+.metric-placement {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 15px; 
+  padding-top: 5px;
+  justify-content: center;
+}
+
+.card{
+  width: 40%;
+  margin: 10px;
 }
