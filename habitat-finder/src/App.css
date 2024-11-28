@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .App {
   height: 100vh;
   background: linear-gradient(to bottom, rgb(226, 206, 243), rgb(165, 115, 223));
@@ -33,7 +37,7 @@ header .logo {
 
 header .title {
   font-size: 24px;
-  color:#6b4f7c;;
+  color:#6b4f7c;
   font-weight: bold;
   text-transform: uppercase;
 }
