@@ -1,0 +1,75 @@
+import React, { useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+const PriorityList = () => {
+  const [items, setItems] = useState([
+    { id: "task-1", text: "Air Quality Index" },
+    { id: "task-2", text: "Heat Metric Index" },
+    { id: "task-3", text: "UV Radiation Index" },
+    { id: "task-4", text: "Precipitation and Flooding Index" },
+  ]);
+
+  const handleDragEnd = (result) => {
+    if (!result.destination) return;
+
+    const reorderedItems = Array.from(items);
+    const [movedItem] = reorderedItems.splice(result.source.index, 1);
+    reorderedItems.splice(result.destination.index, 0, movedItem);
+
+    setItems(reorderedItems);
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <h2 style={{ color: "#7e57c2", marginBottom: "20px" }}>Set Environment Factors Priority</h2>
+      <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="priorityList">
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              style={{
+                width: "400px",
+                padding: "10px",
+                backgroundColor: "#f9f6ff",
+                borderRadius: "10px",
+              }}
+            >
+              {items.map((item, index) => (
+                <Draggable key={item.id} draggableId={item.id} index={index}>
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        padding: "15px 20px",
+                        marginBottom: "10px",
+                        backgroundColor: "#e8e2fc",
+                        color: "#5c4d9a",
+                        borderRadius: "8px",
+                        boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+                        fontWeight: "500",
+                        fontSize: "16px",
+                        ...provided.draggableProps.style,
+                      }}
+                    >
+                      <span>{item.text}</span>
+                      <span style={{ fontSize: "18px", cursor: "grab" }}>≡</span>
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
+    </div>
+  );
+};
+
+export default PriorityList;

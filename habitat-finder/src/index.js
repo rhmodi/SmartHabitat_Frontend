@@ -6,10 +6,18 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const SUPPRESSED_WARNINGS = ["Support for defaultProps will be removed"];
+
+const originalConsoleError = console.error;
+console.error = (...args) => {
+  if (SUPPRESSED_WARNINGS.some((entry) => args[0].includes(entry))) {
+    return;
+  }
+  originalConsoleError(...args);
+};
 root.render(
-  <React.StrictMode>
+  
     <App />
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
