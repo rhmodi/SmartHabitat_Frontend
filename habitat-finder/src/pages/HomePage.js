@@ -1,11 +1,23 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
-import Dropdown from "../components/Dropdown";
-import PriorityList from "../components/PriorityList";
 import { useNavigate } from "react-router-dom";
+import { Slide, toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Dropdown from "../components/Dropdown";
+import Header from "../components/Header";
+import PriorityList from "../components/PriorityList";
+import apiService from "../services/apiService";
+
 
 const HomePage = () => {
   const [sliderValue, setSliderValue] = useState(2);
+  const [selectedCity,setSelectedCity] = useState("Any");
+
+  const [items, setItems] = useState([
+    { id: "task-1", text: "Air Quality Index" },
+    { id: "task-2", text: "Heat Metric Index" },
+    { id: "task-3", text: "UV Radiation Index" },
+    { id: "task-4", text: "Precipitation and Flooding Index" },
+  ]);
 
   const preferences = [
     { environment: "Strong preference to environment", crime: "Very low preference to crime" },
@@ -19,17 +31,76 @@ const HomePage = () => {
     setSliderValue(Number(e.target.value));
   };
 
+  const handleCityChange = (e) => {
+    setSelectedCity(e.target.value);
+  };
+
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
-    navigate("/results");
+  const handleButtonClick = async () => {
+    const crimePreferencePercent = (sliderValue*100)/4;
+    const environmentPreferencePercent = Math.abs((4-sliderValue)*100)/4;
+    const priorities = items.map((item) => item.id);
+
+    const defaultPayload = {
+      city: selectedCity || "any",
+      crimePreferencePercent: 0,
+      environmentPreferencePercent: 0,
+      airQualityPriority: 0,
+      heatMetricPriority: 0,
+      uvRadiationPriority: 0,
+      precipationPriority: 0,
+    };
+  
+    const dynamicValues = {
+      crimePreferencePercent,
+      environmentPreferencePercent,
+      airQualityPriority: priorities.indexOf("task-1"),
+      heatMetricPriority: priorities.indexOf("task-2"),
+      uvRadiationPriority: priorities.indexOf("task-3"),
+      precipationPriority: priorities.indexOf("task-4"),
+    };
+
+    const preference = { ...defaultPayload, ...dynamicValues };
+    try{
+      const habitatResponse = await apiService.requestHabitat(preference);
+      toast.success('Request is being Processed', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+        });
+
+        setTimeout(() => {
+          navigate("/results");
+        }, 2000);
+    }catch(error){
+      toast.error('Internal Error', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide,
+        });
+      console.log("Error sending Data: ",error);
+    }
   };
 
   return (
     <div className="App">
+       <ToastContainer />
       <div className="box">
         <Header />
-        <Dropdown />
+        <Dropdown value={selectedCity} onChange={handleCityChange}/>
         <h2>Preference Slider</h2>
         <div className="slider-container">
           <div className="slider-labels">
@@ -97,7 +168,7 @@ const HomePage = () => {
         </div>
         <br />
         <br />
-        <PriorityList />
+        <PriorityList items={items} setItems={setItems}/>
         <button
           onClick={handleButtonClick}
           style={{

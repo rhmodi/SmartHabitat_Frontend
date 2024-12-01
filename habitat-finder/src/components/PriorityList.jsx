@@ -1,13 +1,8 @@
-import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import React from "react";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 
-const PriorityList = () => {
-  const [items, setItems] = useState([
-    { id: "task-1", text: "Air Quality Index" },
-    { id: "task-2", text: "Heat Metric Index" },
-    { id: "task-3", text: "UV Radiation Index" },
-    { id: "task-4", text: "Precipitation and Flooding Index" },
-  ]);
+const PriorityList = ({items,setItems}) => {
+
 
   const handleDragEnd = (result) => {
     if (!result.destination) return;

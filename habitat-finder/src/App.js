@@ -5,13 +5,11 @@ import React from 'react';
 import { DetailsPage } from './pages/DetailsPage';
 import HomePage from './pages/HomePage';
 import ResultsPage from './pages/ResultsPage';
-
 const App= ()=> {
   return (
     
     <Router>
     <div className="app-container">
-    
       <main>
       
         <Routes>

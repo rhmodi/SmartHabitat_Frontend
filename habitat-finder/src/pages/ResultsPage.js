@@ -17,12 +17,12 @@ const ResultsPage = () => {
       <div className="box">
         <Header />
         <br></br>
-        <h1 class="font-bold" className="title">
+        <h1 className="font-bold title">
           BEST CITY FOR YOU ✨ :- {result[0].city}
         </h1>
         <br></br>
         <br></br>
-        <h2 class="font-bold text-purple-500" className="subtitle">
+        <h2 className="font-bold text-purple-500 subtitle">
           Top 5 Cities and Neighborhoods for you:
         </h2>
         <br></br>
