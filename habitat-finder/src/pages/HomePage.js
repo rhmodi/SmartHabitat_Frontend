@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
@@ -6,7 +7,6 @@ import Dropdown from "../components/Dropdown";
 import Header from "../components/Header";
 import PriorityList from "../components/PriorityList";
 import apiService from "../services/apiService";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const HomePage = () => {
@@ -56,10 +56,10 @@ const HomePage = () => {
     const dynamicValues = {
       crimePreferencePercent,
       environmentPreferencePercent,
-      airQualityPriority: priorities.indexOf("task-1"),
-      heatMetricPriority: priorities.indexOf("task-2"),
-      uvRadiationPriority: priorities.indexOf("task-3"),
-      precipationPriority: priorities.indexOf("task-4"),
+      airQualityPriority: (4-priorities.indexOf("task-1")),
+      heatMetricPriority: (4-priorities.indexOf("task-2")),
+      uvRadiationPriority: (4-priorities.indexOf("task-3")),
+      precipationPriority: (4-priorities.indexOf("task-4")),
     };
 
     const preference = { ...defaultPayload, ...dynamicValues };
