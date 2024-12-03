@@ -14,10 +14,10 @@ const HomePage = () => {
   const [selectedCity,setSelectedCity] = useState("Any");
 
   const [items, setItems] = useState([
-    { id: "task-1", text: "Air Quality Index" },
-    { id: "task-2", text: "Heat Metric Index" },
-    { id: "task-3", text: "UV Radiation Index" },
-    { id: "task-4", text: "Precipitation and Flooding Index" },
+    { id: "task-1", text: "Air Quality Index", message: "Higher indicates more air pollution!" },
+    { id: "task-2", text: "Heat Metric Index", message: "Higher indicates more temperature!" },
+    { id: "task-3", text: "UV Radiation Index", message: "Higher indicates higher exposure to UV!" },
+    { id: "task-4", text: "Precipitation and Flooding Index", message: "Higher indicates heavier rains!" },
   ]);
 
   const preferences = [

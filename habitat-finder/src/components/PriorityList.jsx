@@ -1,5 +1,6 @@
 import React from "react";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
+import { Tooltip } from 'react-tooltip';
 
 const PriorityList = ({items,setItems}) => {
 
@@ -33,6 +34,7 @@ const PriorityList = ({items,setItems}) => {
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
+                    <span data-tooltip-id={`tooltip-${index}`} data-tooltip-content={item.message}>
                     <div
                       ref={provided.innerRef}
                       {...provided.draggableProps}
@@ -52,9 +54,11 @@ const PriorityList = ({items,setItems}) => {
                         ...provided.draggableProps.style,
                       }}
                     >
-                      <span>{item.text}</span>
+                      {item.text}
+                      <Tooltip id={`tooltip-${index}`} />
                       <span style={{ fontSize: "18px", cursor: "grab" }}>≡</span>
                     </div>
+                    </span>
                   )}
                 </Draggable>
               ))}
