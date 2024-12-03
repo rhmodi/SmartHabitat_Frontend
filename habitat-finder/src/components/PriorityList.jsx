@@ -15,8 +15,8 @@ const PriorityList = ({items,setItems}) => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <h2 style={{ color: "#7e57c2", marginBottom: "20px" }}>Set Environment Factors Priority</h2>
+    <div className="container my-5" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <h2 className="mb-4" style={{ color: "#7e57c2", marginBottom: "20px", fontWeight: "bold"}}>Set Environment Factors Priority</h2>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="priorityList">
           {(provided) => (

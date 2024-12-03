@@ -6,6 +6,7 @@ import Dropdown from "../components/Dropdown";
 import Header from "../components/Header";
 import PriorityList from "../components/PriorityList";
 import apiService from "../services/apiService";
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const HomePage = () => {
@@ -98,7 +99,7 @@ const HomePage = () => {
   return (
     <div className="App">
        <ToastContainer />
-      <div className="box">
+       <div className="container mt-4 p-4 rounded shadow-lg" style={{ backgroundColor: "#f8f9fa" }}>
         <Header />
         <Dropdown value={selectedCity} onChange={handleCityChange}/>
         <h2>Preference Slider</h2>
