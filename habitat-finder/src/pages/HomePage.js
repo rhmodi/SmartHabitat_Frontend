@@ -1,3 +1,4 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Slide, toast, ToastContainer } from "react-toastify";
@@ -13,10 +14,10 @@ const HomePage = () => {
   const [selectedCity,setSelectedCity] = useState("Any");
 
   const [items, setItems] = useState([
-    { id: "task-1", text: "Air Quality Index" },
-    { id: "task-2", text: "Heat Metric Index" },
-    { id: "task-3", text: "UV Radiation Index" },
-    { id: "task-4", text: "Precipitation and Flooding Index" },
+    { id: "task-1", text: "Air Quality Index", message: "Higher indicates more air pollution!" },
+    { id: "task-2", text: "Heat Metric Index", message: "Higher indicates more temperature!" },
+    { id: "task-3", text: "UV Radiation Index", message: "Higher indicates higher exposure to UV!" },
+    { id: "task-4", text: "Precipitation and Flooding Index", message: "Higher indicates heavier rains!" },
   ]);
 
   const preferences = [
@@ -55,31 +56,45 @@ const HomePage = () => {
     const dynamicValues = {
       crimePreferencePercent,
       environmentPreferencePercent,
-      airQualityPriority: priorities.indexOf("task-1"),
-      heatMetricPriority: priorities.indexOf("task-2"),
-      uvRadiationPriority: priorities.indexOf("task-3"),
-      precipationPriority: priorities.indexOf("task-4"),
+      airQualityPriority: (4-priorities.indexOf("task-1")),
+      heatMetricPriority: (4-priorities.indexOf("task-2")),
+      uvRadiationPriority: (4-priorities.indexOf("task-3")),
+      precipationPriority: (4-priorities.indexOf("task-4")),
     };
 
     const preference = { ...defaultPayload, ...dynamicValues };
-    try{
+    try {
       const habitatResponse = await apiService.requestHabitat(preference);
-      toast.success('Request is being Processed', {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
+      console.log("Habitat Response: ", habitatResponse); // Log the response to debug
+      const responseBody = habitatResponse; // Ensure the response is properly parsed
+      console.log("Response Body: ", responseBody); // Log the response body to debug
+      if (responseBody && responseBody.length > 0) {
+        const results = responseBody.map((item) => {
+          const iri = Object.keys(item)[0];
+          const score = item[iri];
+          return { iri, score };
+        });
+        console.log("Results: ", results);
+        localStorage.setItem("Metrics", JSON.stringify(results));
+        toast.success('Request is being Processed', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
         });
 
         setTimeout(() => {
           navigate("/results");
         }, 2000);
-    }catch(error){
+      } else {
+        throw new Error("Response body is null or undefined");
+      }
+    } catch (error) {
       toast.error('Internal Error', {
         position: "top-right",
         autoClose: 5000,
@@ -90,15 +105,15 @@ const HomePage = () => {
         progress: undefined,
         theme: "light",
         transition: Slide,
-        });
-      console.log("Error sending Data: ",error);
+      });
+      console.log("Error sending Data: ", error);
     }
   };
 
   return (
     <div className="App">
        <ToastContainer />
-      <div className="box">
+       <div className="container mt-4 p-4 rounded shadow-lg" style={{ backgroundColor: "#f8f9fa" }}>
         <Header />
         <Dropdown value={selectedCity} onChange={handleCityChange}/>
         <h2>Preference Slider</h2>

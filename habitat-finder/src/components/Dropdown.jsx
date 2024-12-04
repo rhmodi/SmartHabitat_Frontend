@@ -6,8 +6,8 @@ function Dropdown({value,onChange}) {
       <label htmlFor="city">Where do you want to relocate?</label>
       <select id="city" name="city" value={value} onChange={onChange}>
         <option value="any">Any</option>
-        <option value="chicago">Chicago</option>
-        <option value="los-angeles">Los Angeles</option>
+        <option value="Chicago">Chicago</option>
+        <option value="Los%20Angeles">Los Angeles</option>
       </select>
     </div>
   );

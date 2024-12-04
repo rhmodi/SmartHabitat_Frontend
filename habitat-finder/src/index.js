@@ -16,7 +16,6 @@ console.error = (...args) => {
   originalConsoleError(...args);
 };
 root.render(
-  
     <App />
 );
 
