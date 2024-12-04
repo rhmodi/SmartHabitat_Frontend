@@ -18,25 +18,25 @@ const ResultsPage = () => {
         <Header />
         <br></br>
         <h1 className="font-bold title">
-          BEST CITY FOR YOU ✨ :- {result[0]?.iri.split('#')[1].replace(/%20/g, ' ') || "N/A"}
+          Best Communities For You ✨ :- {result[0]?.iri.split('#')[1].replace(/%20/g, ' ') || "N/A"}
         </h1>
         <br></br>
         <br></br>
         <h2 className="font-bold text-purple-500 subtitle">
-          Top 5 Cities and Neighborhoods for you:
+          Top 5 Communities and Neighborhoods for you:
         </h2>
         <br></br>
         <table className="table-auto border-collapse border border-gray-300 w-3/4 mx-auto shadow-lg">
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-gray-300 px-4 py-2 text-gray-600 font-semibold">
-                City
+                Community
               </th>
               <th className="border border-gray-300 px-4 py-2 text-gray-600 font-semibold">
                 Score
               </th>
               <th className="border border-gray-300 px-4 py-2 text-gray-600 font-semibold">
-                Actions
+                Action
               </th>
             </tr>
           </thead>
@@ -58,13 +58,11 @@ const ResultsPage = () => {
                   <Link
                     to="/details"
                     onClick={() => {
-                      const cityInfo = [
-                        {
-                          iri: item.iri,
-                          score: item.score,
-                        },
-                      ];
-                      localStorage.setItem("Metrics", JSON.stringify(cityInfo));
+                      const cityInfo = {
+                        iri: item.iri,
+                        score: item.score,
+                      };
+                      localStorage.setItem("CityInfo", JSON.stringify(cityInfo));
                     }}
                     className="hover:underline font-medium"
                   >

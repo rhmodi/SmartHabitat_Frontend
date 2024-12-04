@@ -18,6 +18,21 @@ class ApiService{
         }
         
     }
+
+    async getCommunityDetails(payload) {
+        try {
+            console.log("Base API:", this.baseURL);
+            const response = await axios.post(`${this.baseURL}/api/smart-Habitat/getCommunityDetails`, payload, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
 }
 
 const apiService = new ApiService()

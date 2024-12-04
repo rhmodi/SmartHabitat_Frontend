@@ -1,7 +1,7 @@
-
 import React from "react";
 import Card from 'react-bootstrap/Card';
 import Header from "../components/Header";
+import apiService from "../services/apiService";
 
 export const DetailsPage = () => {
 
@@ -29,39 +29,113 @@ export const DetailsPage = () => {
       const environmentMetrics = metrics.filter(m => ["Heat Index", "AQI", "Precipitation Index", "UV Index"].includes(m.name));
       const crimeMetrics = metrics.filter(m=>["# of Critical Crime", "# of Serious Crime", "# of Moderate Crime"].includes(m.name));
 
+      const cityInfo = JSON.parse(localStorage.getItem("CityInfo")) || {};
+
+      const payload = {
+        IRI: cityInfo.iri || "",
+        name: cityInfo.name || "",
+        seriousCrimeIndex: metrics.find(m => m.name === "Relative Serious Crime Index")?.value || 0,
+        moderateCrimeIndex: metrics.find(m => m.name === "Relative Moderate Crime Index")?.value || 0,
+        criticalCrimeIndex: metrics.find(m => m.name === "Relative Critical Crime Index")?.value || 0,
+        airQualityIndex: metrics.find(m => m.name === "AQI")?.value || 0,
+        heatIndex: metrics.find(m => m.name === "Heat Index")?.value || 0,
+        uvRadiationIndex: metrics.find(m => m.name === "UV Index")?.value || 0,
+        precipitationIndex: metrics.find(m => m.name === "Precipitation Index")?.value || 0
+    };
+
+    const [communityDetails, setCommunityDetails] = React.useState({});
+
+    React.useEffect(() => {
+        const fetchCommunityDetails = async () => {
+            try {
+                const data = await apiService.getCommunityDetails(payload);
+                setCommunityDetails(data);
+            } catch (error) {
+                console.error("Error fetching community details:", error);
+            }
+        };
+
+        fetchCommunityDetails();
+    }, [payload]);
+
+    const environmentDetails = {
+        heatIndex: communityDetails.heatIndex,
+        airQualityIndex: communityDetails.airQualityIndex,
+        uvRadiationIndex: communityDetails.uvRadiationIndex,
+        precipitationIndex: communityDetails.precipitationIndex
+    };
+
+    const crimeDetails = {
+        seriousCrimeIndex: communityDetails.seriousCrimeIndex,
+        moderateCrimeIndex: communityDetails.moderateCrimeIndex,
+        criticalCrimeIndex: communityDetails.criticalCrimeIndex
+    };
+
+    const cityDetails = {
+        name: communityDetails.name,
+        score: cityInfo.score
+    };
+
+    const toTitleCase = (str) => {
+        return str.replace(/([A-Z])/g, ' $1').replace(/^./, function(str){ return str.toUpperCase(); });
+    };
+
+    const cityName = toTitleCase(cityInfo.iri?.split('#')[1].replace(/%20/g, ' ').toLowerCase() || "N/A");
+
   return (
     <div className="App">
       <div className="box">
         <Header />
         <div className="detials-content">
-          <h1 className="text-3xl font-bold text-center mb-4">STATISTICS(Recent Data from 2021-2022) of {providedMetrics[0].county} County</h1>
+          <h1 className="text-3xl font-bold text-center mb-4">
+            Statistics  (Recent Data from 2021-2022) of {cityName} Community
+          </h1>
           <div className="metrics-container">
             <div className="section">
-              <h2 className="text-2xl font-bold text-center mb-4">Environment Metrics</h2>
+              <h2 className="text-2xl font-bold text-center mb-4">County Information</h2>
               <div className="metric-placement">
-                {environmentMetrics.map((metric,index)=>(
-                    <Card key={index} className="card" >
+                {Object.entries(cityDetails).map(([key, value], index) => (
+                    <Card key={index} className="card">
                         <Card.Body>
-                            <Card.Title>{metric.name}</Card.Title>
-                            <Card.Text>{metric.value}</Card.Text>
+                            <Card.Title>{toTitleCase(key)}</Card.Title>
+                            <Card.Text>{value}</Card.Text>
                         </Card.Body>
                     </Card>
                 ))}
               </div>
             </div>
-
             <div className="section">
-              <h2 className="text-2xl font-bold text-center mb-4">Crime Metrics</h2>
+              <h2 className="text-2xl font-bold text-center mb-4">Environment Metrics</h2>
               <div className="metric-placement">
-              {crimeMetrics.map((metric,index)=>(
-                    <Card key={index} className="card" >
+                {Object.entries(environmentDetails).map(([key, value], index) => (
+                    <Card key={index} className="card">
                         <Card.Body>
-                            <Card.Title>{metric.name}</Card.Title>
-                            <Card.Text>{metric.value}</Card.Text>
+                            <Card.Title>{toTitleCase(key)}</Card.Title>
+                            <Card.Text>{value}</Card.Text>
                         </Card.Body>
                     </Card>
                 ))}
               </div>
+              <p className="text-center mt-4">Environment data is from National Environmental Public Health Tracking Network, 
+                <a className="hover:underline font-medium" href="https://ephtracking.cdc.gov/DataExplorer/" 
+                  target="_blank" rel="noopener noreferrer"> Data Explorer
+                </a>
+              </p>
+            </div>
+
+            <div className="section">
+              <h2 className="text-2xl font-bold text-center mb-4">Crime Metrics</h2>
+              <div className="metric-placement">
+              {Object.entries(crimeDetails).map(([key, value], index) => (
+                    <Card key={index} className="card">
+                        <Card.Body>
+                            <Card.Title>{toTitleCase(key)}</Card.Title>
+                            <Card.Text>{value}</Card.Text>
+                        </Card.Body>
+                    </Card>
+                ))}
+              </div>
+              <p className="text-center mt-4">Lower crime index is better.</p>
             </div>
           </div>
         </div>
