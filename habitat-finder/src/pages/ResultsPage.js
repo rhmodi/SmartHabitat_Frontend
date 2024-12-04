@@ -1,9 +1,12 @@
 import Header from "../components/Header";
-import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import apiService from "../services/apiService";
 
 const ResultsPage = () => {
   const [result, setResult] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedResults = JSON.parse(localStorage.getItem("Metrics"));
@@ -11,6 +14,27 @@ const ResultsPage = () => {
       setResult(storedResults);
     }
   }, []);
+
+  const handleViewDetails = async (item) => {
+    const payload = {
+      IRI: item.iri,
+      name: item.name,
+      seriousCrimeIndex: parseFloat((item.seriousCrimeIndex || 0).toFixed(2)),
+      moderateCrimeIndex: parseFloat((item.moderateCrimeIndex || 0).toFixed(2)),
+      criticalCrimeIndex: parseFloat((item.criticalCrimeIndex || 0).toFixed(2)),
+      airQualityIndex: item.airQualityIndex || 0,
+      heatIndex: item.heatIndex || 0,
+      uvRadiationIndex: item.uvRadiationIndex || 0,
+      precipitationIndex: item.precipitationIndex || 0
+    };
+
+    try {
+      const data = await apiService.getCommunityDetails(payload);
+      navigate('/details', { state: { communityDetails: data, cityInfo: { iri: item.iri, score: item.score.toFixed(2) } } });
+    } catch (error) {
+      console.error("Error fetching community details:", error);
+    }
+  };
 
   return (
     <div className="App">
@@ -56,14 +80,7 @@ const ResultsPage = () => {
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-blue-500">
                   <Link
-                    to="/details"
-                    onClick={() => {
-                      const cityInfo = {
-                        iri: item.iri,
-                        score: item.score.toFixed(2),
-                      };
-                      localStorage.setItem("CityInfo", JSON.stringify(cityInfo));
-                    }}
+                    onClick={() => handleViewDetails(item)}
                     className="hover:underline font-medium"
                   >
                     View Detailed Stats
