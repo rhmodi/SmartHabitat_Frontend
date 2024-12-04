@@ -112,8 +112,9 @@ const HomePage = () => {
 
   return (
     <div className="App">
+      <div className='box'>
        <ToastContainer />
-       <div className="container mt-4 p-4 rounded shadow-lg" style={{ backgroundColor: "#f8f9fa" }}>
+       <div className="container">
         <Header />
         <Dropdown value={selectedCity} onChange={handleCityChange}/>
         <h2>Preference Slider</h2>
@@ -183,7 +184,9 @@ const HomePage = () => {
         </div>
         <br />
         <br />
-        <PriorityList items={items} setItems={setItems}/>
+        <PriorityList items={items} setItems={setItems} style={{ marginTop: "0px", marginBottom: "10px" }}/>
+
+        <div className='button-container'>
         <button
           onClick={handleButtonClick}
           style={{
@@ -207,6 +210,9 @@ const HomePage = () => {
         >
           Find me a city based on these preferences!
         </button>
+        </div>
+      </div>
+    
       </div>
     </div>
   );
