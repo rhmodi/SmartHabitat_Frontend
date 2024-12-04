@@ -34,9 +34,9 @@ export const DetailsPage = () => {
       const payload = {
         IRI: cityInfo.iri || "",
         name: cityInfo.name || "",
-        seriousCrimeIndex: metrics.find(m => m.name === "Relative Serious Crime Index")?.value || 0,
-        moderateCrimeIndex: metrics.find(m => m.name === "Relative Moderate Crime Index")?.value || 0,
-        criticalCrimeIndex: metrics.find(m => m.name === "Relative Critical Crime Index")?.value || 0,
+        seriousCrimeIndex: parseFloat((metrics.find(m => m.name === "Relative Serious Crime Index")?.value || 0).toFixed(2)),
+        moderateCrimeIndex: parseFloat((metrics.find(m => m.name === "Relative Moderate Crime Index")?.value || 0).toFixed(2)),
+        criticalCrimeIndex: parseFloat((metrics.find(m => m.name === "Relative Critical Crime Index")?.value || 0).toFixed(2)),
         airQualityIndex: metrics.find(m => m.name === "AQI")?.value || 0,
         heatIndex: metrics.find(m => m.name === "Heat Index")?.value || 0,
         uvRadiationIndex: metrics.find(m => m.name === "UV Index")?.value || 0,
@@ -66,9 +66,9 @@ export const DetailsPage = () => {
     };
 
     const crimeDetails = {
-        seriousCrimeIndex: communityDetails.seriousCrimeIndex,
-        moderateCrimeIndex: communityDetails.moderateCrimeIndex,
-        criticalCrimeIndex: communityDetails.criticalCrimeIndex
+        seriousCrimeIndex: parseFloat((communityDetails.seriousCrimeIndex || 0).toFixed(2)),
+        moderateCrimeIndex: parseFloat((communityDetails.moderateCrimeIndex || 0).toFixed(2)),
+        criticalCrimeIndex: parseFloat((communityDetails.criticalCrimeIndex || 0).toFixed(2))
     };
 
     const cityDetails = {
@@ -116,9 +116,9 @@ export const DetailsPage = () => {
                     </Card>
                 ))}
               </div>
-              <p className="text-center mt-4">Environment data is from National Environmental Public Health Tracking Network, 
-                <a className="hover:underline font-medium" href="https://ephtracking.cdc.gov/DataExplorer/" 
-                  target="_blank" rel="noopener noreferrer"> Data Explorer
+              <p className="text-center mt-4">Environment data is from National Environmental Public Health Tracking Network,&nbsp;
+                <a className="hover:underline font-medium text-blue-600 underline" href="https://ephtracking.cdc.gov/DataExplorer/" 
+                  target="_blank" rel="noopener noreferrer">Data Explorer
                 </a>
               </p>
             </div>
@@ -136,6 +136,7 @@ export const DetailsPage = () => {
                 ))}
               </div>
               <p className="text-center mt-4">Lower crime index is better.</p>
+              <p className="text-center">Crime index ranges from 1 to 10.</p>
             </div>
           </div>
         </div>

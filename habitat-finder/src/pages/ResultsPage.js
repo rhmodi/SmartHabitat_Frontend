@@ -52,7 +52,7 @@ const ResultsPage = () => {
                   {item.iri.split('#')[1].replace(/%20/g, ' ')}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-gray-700">
-                  {item.score}
+                  {item.score.toFixed(2)}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-blue-500">
                   <Link
@@ -60,7 +60,7 @@ const ResultsPage = () => {
                     onClick={() => {
                       const cityInfo = {
                         iri: item.iri,
-                        score: item.score,
+                        score: item.score.toFixed(2),
                       };
                       localStorage.setItem("CityInfo", JSON.stringify(cityInfo));
                     }}
