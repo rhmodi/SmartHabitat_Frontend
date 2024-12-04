@@ -7,7 +7,7 @@ class ApiService{
     async requestHabitat(payload){
         try{
             console.log("Base API:",this.baseURL)
-            const response = await axios.post(`${this.baseURL}/api/smart-Habitat/request-habitat`,payload,{
+            const response = await axios.post(`${this.baseURL}/api/smart-Habitat/CalculateOverallIndex`,payload,{
                 headers:{
                     "Content-Type":"application/json",
                 },

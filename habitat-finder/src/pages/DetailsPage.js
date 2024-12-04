@@ -10,9 +10,9 @@ export const DetailsPage = () => {
         { name: "AQI", value: 0 },
         { name: "Precipitation Index", value: 0 },
         { name: "UV Index", value: 0 },
-        { name: "# of Critical Crime", value: 0 },
-        { name: "# of Serious Crime", value: 0 },
-        { name: "# of Moderate Crime", value: 0 }
+        { name: "Relative Critical Crime Index", value: 0 },
+        { name: "Relative Serious Crime Index", value: 0 },
+        { name: "Relative Moderate Crime Index", value: 0 }
       ];
 
       const getMetricsFromLocalStorage = () => {

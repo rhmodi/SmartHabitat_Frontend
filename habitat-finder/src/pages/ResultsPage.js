@@ -1,16 +1,16 @@
 import Header from "../components/Header";
-// import Dropdown from '../components/Dropdown';
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const ResultsPage = () => {
-  const result = [
-    { city: "Phoenix", county: "Maricopa" },
-    { city: "Tucson", county: "Pima" },
-    { city: "Flagstaff", county: "Coconino" },
-    { city: "Mesa", county: "Maricopa" },
-    { city: "Scottsdale", county: "Maricopa" },
-  ];
+  const [result, setResult] = useState([]);
+
+  useEffect(() => {
+    const storedResults = JSON.parse(localStorage.getItem("Metrics"));
+    if (storedResults) {
+      setResult(storedResults);
+    }
+  }, []);
 
   return (
     <div className="App">
@@ -18,7 +18,7 @@ const ResultsPage = () => {
         <Header />
         <br></br>
         <h1 className="font-bold title">
-          BEST CITY FOR YOU ✨ :- {result[0].city}
+          BEST CITY FOR YOU ✨ :- {result[0]?.iri.split('#')[1].replace(/%20/g, ' ') || "N/A"}
         </h1>
         <br></br>
         <br></br>
@@ -33,7 +33,7 @@ const ResultsPage = () => {
                 City
               </th>
               <th className="border border-gray-300 px-4 py-2 text-gray-600 font-semibold">
-                County/Neighborhood
+                Score
               </th>
               <th className="border border-gray-300 px-4 py-2 text-gray-600 font-semibold">
                 Actions
@@ -49,20 +49,22 @@ const ResultsPage = () => {
                 } hover:bg-gray-100`}
               >
                 <td className="border border-gray-300 px-4 py-2 text-gray-700">
-                  {item.city}
+                  {item.iri.split('#')[1].replace(/%20/g, ' ')}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-gray-700">
-                  {item.county}
+                  {item.score}
                 </td>
                 <td className="border border-gray-300 px-4 py-2 text-blue-500">
                   <Link
                     to="/details"
-                    onClick={()=>{
-                      const cityInfo = [{
-                        "city":item.city,
-                        "county":item.county
-                      }];
-                      localStorage.setItem("Metrics",JSON.stringify(cityInfo));
+                    onClick={() => {
+                      const cityInfo = [
+                        {
+                          iri: item.iri,
+                          score: item.score,
+                        },
+                      ];
+                      localStorage.setItem("Metrics", JSON.stringify(cityInfo));
                     }}
                     className="hover:underline font-medium"
                   >

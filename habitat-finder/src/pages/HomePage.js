@@ -63,24 +63,38 @@ const HomePage = () => {
     };
 
     const preference = { ...defaultPayload, ...dynamicValues };
-    try{
+    try {
       const habitatResponse = await apiService.requestHabitat(preference);
-      toast.success('Request is being Processed', {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Slide,
+      console.log("Habitat Response: ", habitatResponse); // Log the response to debug
+      const responseBody = habitatResponse; // Ensure the response is properly parsed
+      console.log("Response Body: ", responseBody); // Log the response body to debug
+      if (responseBody && responseBody.length > 0) {
+        const results = responseBody.map((item) => {
+          const iri = Object.keys(item)[0];
+          const score = item[iri];
+          return { iri, score };
+        });
+        console.log("Results: ", results);
+        localStorage.setItem("Metrics", JSON.stringify(results));
+        toast.success('Request is being Processed', {
+          position: "top-right",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Slide,
         });
 
         setTimeout(() => {
           navigate("/results");
         }, 2000);
-    }catch(error){
+      } else {
+        throw new Error("Response body is null or undefined");
+      }
+    } catch (error) {
       toast.error('Internal Error', {
         position: "top-right",
         autoClose: 5000,
@@ -91,8 +105,8 @@ const HomePage = () => {
         progress: undefined,
         theme: "light",
         transition: Slide,
-        });
-      console.log("Error sending Data: ",error);
+      });
+      console.log("Error sending Data: ", error);
     }
   };
 
