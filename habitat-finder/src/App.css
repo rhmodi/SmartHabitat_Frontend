@@ -13,7 +13,7 @@
   padding: 20px;
 }
 
-.box {
+.box{
   width: 95%;
   max-width: 1500px;
   min-width: 1000px;
@@ -26,6 +26,7 @@
   margin: 20px;
   box-sizing: border-box;
 }
+
 
 
 
@@ -71,6 +72,7 @@ header .title {
   width: 30%;
   background-color: black;
 }
+
 
 .slider-container {
   position: relative;
@@ -201,3 +203,8 @@ button:hover {
   background-color: #6a47a7;
 }
 
+.button-container {
+  margin-top: -50px;
+  display: flex;
+  justify-content: center;
+}
