@@ -24,11 +24,13 @@ jobs:
         with:
           node-version: 20.11.0
       - name: Install Dependencies
-        working-directory: habitat-finder
-        run:  npm install
+        run: |
+          cd habitat-finder
+          npm install
       - name: Build the App
-        working-directory: habitat-finder/build
-        run:  npm run build
+        run: |
+          cd habitat-finder
+          npm run build
       - name: Debug Build Directory
         run: |
           cd habitat-finder/build
@@ -45,6 +47,8 @@ jobs:
           app_location: "habitat-finder" # App source code path
           api_location: "" # Api source code path - optional
           output_location: "build" # Built app content directory - optional
+          app_build_command: "npm install && npm run build"
+          node_version: "20.11.0"
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
