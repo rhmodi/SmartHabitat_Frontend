@@ -21,11 +21,11 @@ const HomePage = () => {
   ]);
 
   const preferences = [
-    { environment: "Strong preference to environment", crime: "Very low preference to crime" },
-    { environment: "Medium preference to environment", crime: "Low preference to crime" },
+    { environment: "Strong preference to good environment", crime: "Very low preference to less crime" },
+    { environment: "Medium preference to good environment", crime: "Low preference to less crime" },
     { environment: "Neutral preference to both", crime: "Neutral preference to both" },
-    { environment: "Low preference to environment", crime: "Medium preference to crime" },
-    { environment: "Very low preference to environment", crime: "Strong preference to crime" },
+    { environment: "Low preference to good environment", crime: "Medium preference to less crime" },
+    { environment: "Very low preference to good environment", crime: "Strong preference to less crime" },
   ];
 
   const handleSliderChange = (e) => {
