@@ -1,7 +1,10 @@
 import axios from "axios";
 class ApiService{
     constructor(){
-        this.baseURL = process.env.REACT_APP_BACKEND_BASE_URL;
+        this.baseURL =
+        process.env.NODE_ENV === 'production'
+        ? process.env.REACT_APP_PROD_BACKEND_BASE_URL
+        : process.env.REACT_APP_DEV_BACKEND_BASE_URL;
     }
 
     async requestHabitat(payload){
