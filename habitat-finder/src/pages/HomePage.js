@@ -208,7 +208,7 @@ const HomePage = () => {
             e.target.style.backgroundColor = "#7e57c2";
           }}
         >
-          Find me a city based on these preferences!
+          Find me a location based on these preferences!
         </button>
         </div>
       </div>
