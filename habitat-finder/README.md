@@ -1,70 +1,138 @@
-# Getting Started with Create React App
+# SmartHabitat_Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The application features an interactive UI with three main pages: a Home page for preference selection, a Results page showcasing the top 5 matching communities, and a Detailed View page displaying in-depth metrics for environmental and crime factors of selected neighborhoods.
 
-## Available Scripts
+Welcome to the `SmartHabitat Application`! This document provides instructions for setting up and running the application locally as well as deploying it for production.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Table of Contents
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [Running Locally](#running-locally)
+- [Building for Production](#building-for-production)
+- [Running Production Build Locally](#running-production-build-locally)
+- [Deployment](#deployment)
+- [Contributors](#contributors)
+- [Technologies Used](#technologies-used)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Before you start, ensure you have the following installed:
 
-### `npm run build`
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- [npm](https://www.npmjs.com/)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Setup
+1. Clone the Repository:
+    ```python
+    git clone https://github.com/rhmodi/SmartHabitat_Frontend.git
+    ```
+2. Go the App folder:
+    ```python
+    cd SmartHabitat_Frontend/habitat-finder
+    ```
+3. Install Dependencies:
+    ```python
+    npm install
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Running Locally
+1. Start Backend Server Locally. Redirect to:
+    ```python
+    https://github.com/rhmodi/SmartHabitat_Backend/blob/main/README.md
+    ```
+2. Start the Developement Server:
+    ```python
+    npm start
+    ```
+3. Open your browser and Navigate to:
+    ```python
+    http://localhost:3000
+    ```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Building for Production
+1. Generate the production build:
+    ```python
+    npm run build
+    ```
+2. The production-ready files will be available in the build/ directory.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Running Production Build Locally
+1. Install a static server:
+    ```python
+    npm install -g serve
+    ```
+2. Serve the build directory:
+    ```python
+    serve -s build
+    ```
+3. Open your browser and Navigate to:
+    ```python
+    http://localhost:3000
+    ```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Deployment
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+This application has been deployed as a `Static Web App` on `Microsoft Azure` using a `CI/CD pipeline` with `GitHub Actions`.
 
-### Code Splitting
+### Deployment Process
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. **CI/CD Configuration:**
+   - The CI/CD pipeline is configured to automatically deploy the application whenever changes are pushed to the `cloud-deployment` branch on GitHub.
 
-### Analyzing the Bundle Size
+2. **Static Web App Setup:**
+   - Azure Static Web Apps service is used to host the application.
+   - The build and deployment process is managed through a pre-configured GitHub Actions workflow.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+3. **Deployment Workflow:**
+   - On every push to the `cloud-deployment` branch:
+     - GitHub Actions triggers the build process.
+     - The React application is built using the `npm run build` command.
+     - The build output in the `build/` directory is deployed to Azure Static Web Apps.
 
-### Making a Progressive Web App
+4. **Live Deployment URL:**
+   - The application is accessible at: [Smart Habitat Finder](purple-mushroom-050a3aa1e.4.azurestaticapps.net)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### Notes
 
-### Advanced Configuration
+- Ensure that the `cloud-deployment` branch contains the latest code changes for successful deployment.
+- The deployment workflow file is located in `.github/workflows/` and follows the YAML configuration provided by Azure.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+---
 
-### Deployment
+## Contributors
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+We’d like to thank the following contributors for their efforts in building and maintaining this project:
 
-### `npm run build` fails to minify
+- **RakshilKumar Modi** - [GitHub Profile](https://github.com/rakshil14-2)
+- **Akshata Vijay Kulkarni** - [GitHub Profile](https://github.com/akulka89)
+- **Kaumudi Degekar Gulbarga** - [GitHub Profile](https://github.com/kgulbarg)
+- **Shloka Pandya** - [GitHub Profile](https://github.com/shloka23)
+- **Anuj Kapoor** - [GitHub Profile](https://github.com/anujkap)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+--- 
+
+
+## Technologies Used
+
+- **React.js**: Frontend library
+- **React Router**: For Routing
+- **TailwindCSS**: For styling
+- **Axios**: For Api Requests
+- **Create React App**: For project setup
+
