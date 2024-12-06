@@ -116,7 +116,7 @@ This application has been deployed as a `Static Web App` on `Microsoft Azure` us
 
 ## Contributors
 
-We’d like to thank the following contributors for their efforts in building and maintaining this project:
+This project was built and maintained with contributions from the following team members:
 
 - **RakshilKumar Modi** - [GitHub Profile](https://github.com/rakshil14-2)
 - **Akshata Vijay Kulkarni** - [GitHub Profile](https://github.com/akulka89)
